@@ -674,6 +674,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 .design__content {
   flex: 1 1 auto;
+  height: 100%;
   min-height: 0;
   min-width: 0;
   display: grid;
@@ -681,6 +682,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
   align-items: stretch;
 }
 .design__left {
+  height: 100%;
   min-width: 0;
   min-height: 0;
   display: grid;
@@ -688,6 +690,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
   gap: 0;
 }
 .design__right {
+  height: 100%;
   min-width: 0;
   min-height: 0;
   display: flex;
@@ -695,6 +698,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .design__card {
   position: relative;
   isolation: isolate;
+  height: 100%;
   min-width: 0;
   min-height: 0;
   display: grid;
@@ -735,6 +739,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .design__media, .design__popup {
   position: relative;
   z-index: 0;
+  height: 100%;
   min-height: 0;
   min-width: 0;
 }
@@ -775,24 +780,24 @@ html.--fullpage-init [data-fls-fullpage-section] {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 0;
+  height: 100%;
   min-height: 0;
-  overflow: visible;
+  min-width: 0;
   border-radius: 0.625rem;
+  overflow: hidden;
 }
 .design__media img {
   display: block;
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   max-height: 100%;
-  width: auto;
-  height: auto;
   object-fit: contain;
 }
 .design__media--center {
   justify-content: center;
   align-items: center;
   border-radius: 0;
-  overflow: visible;
 }
 .design__card--dark {
   color: #fff;
@@ -800,12 +805,9 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .design__card--dark::before {
   background: #323232;
 }
-.design__card--dark .design__media {
-  overflow: hidden;
-  border-radius: 0.625rem;
-}
 .design__card--dark .design__media img {
   width: 92%;
+  height: 100%;
   max-height: 100%;
 }
 .design__card--light {
@@ -819,11 +821,12 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 .design__card--light .design__media {
   border-radius: 0;
-  overflow: hidden;
 }
 .design__card--light .design__media img {
   width: min(35rem, 100%);
+  height: 100%;
   max-height: 100%;
+  object-fit: contain;
 }
 .design__card--phone {
   color: #fff;
@@ -836,19 +839,18 @@ html.--fullpage-init [data-fls-fullpage-section] {
   margin-top: 1.125rem;
   background: transparent;
   border-radius: 0;
-  overflow: hidden;
 }
 .design__popup {
-  min-height: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: visible;
+  height: 100%;
+  min-height: 0;
 }
 .design__video {
   display: block;
   width: min(19.5rem, 100%);
-  height: auto;
+  height: 100%;
   max-height: 100%;
   object-fit: contain;
   border-radius: 2.1875rem;
@@ -1155,20 +1157,24 @@ html.--fullpage-init [data-fls-fullpage-section] {
     min-height: auto;
   }
   .design__content {
+    height: auto;
     grid-template-columns: 1fr;
     gap: 1.5625rem;
     padding-top: 1.5625rem;
     min-height: auto;
   }
   .design__left {
+    height: auto;
     grid-template-rows: auto;
     gap: 1.875rem;
     min-height: auto;
   }
   .design__right {
+    height: auto;
     min-height: auto;
   }
   .design__card {
+    height: auto;
     display: flex;
     flex-direction: column;
     gap: 1.125rem;
@@ -1188,12 +1194,17 @@ html.--fullpage-init [data-fls-fullpage-section] {
   .design__card--phone::before {
     background: #323232;
   }
+  .design__video {
+    height: auto;
+    max-height: none;
+  }
   .design__media {
     overflow: visible;
   }
-  .design__video {
+  .design__media img {
+    height: auto;
+    width: 100%;
     max-height: none;
-    object-fit: contain;
   }
 }
 
@@ -1322,15 +1333,6 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 
 @media (max-height: 51.25rem){
-  .design__card--dark .design__media img {
-    max-height: 100%;
-  }
-  .design__card--light .design__media img {
-    max-height: 100%;
-  }
-  .design__video {
-    max-height: 100%;
-  }
   .tms__visual img {
     max-height: 62svh;
   }
@@ -1383,15 +1385,6 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 
 @media (max-height: 45rem){
-  .design__card--dark .design__media img {
-    max-height: 100%;
-  }
-  .design__card--light .design__media img {
-    max-height: 100%;
-  }
-  .design__video {
-    max-height: 100%;
-  }
   .tms__visual img {
     max-height: 54svh;
   }
