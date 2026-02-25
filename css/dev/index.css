@@ -771,16 +771,18 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .design__media {
   min-width: 0;
   min-height: 0;
-  overflow: hidden;
   display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 0.625rem;
+  overflow: visible;
 }
 .design__media img {
   display: block;
   max-width: 100%;
   width: auto;
   height: auto;
-  max-height: 100%;
+  max-height: 38svh;
   object-fit: contain;
 }
 .design__media--center {
@@ -799,10 +801,11 @@ html.--fullpage-init [data-fls-fullpage-section] {
   border-radius: 0.625rem;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 .design__card--dark .design__media img {
   width: 92%;
-  max-height: min(100%, 36vh);
+  max-height: 36svh;
 }
 .design__card--light {
   color: #3a3a3c;
@@ -821,7 +824,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 .design__card--light .design__media img {
   width: min(35rem, 100%);
-  max-height: min(100%, 38vh);
+  max-height: 38svh;
   object-fit: contain;
 }
 .design__card--phone {
@@ -851,11 +854,11 @@ html.--fullpage-init [data-fls-fullpage-section] {
   border-radius: 2.1875rem;
   object-fit: cover;
   pointer-events: none;
-  max-height: min(100%, 72vh);
+  max-height: 72svh;
 }.tms {
   position: relative;
-  height: 100vh;
   height: 100svh;
+  min-height: 0;
   overflow: hidden;
   background: url("../assets/img/tms-background.webp") center/cover no-repeat;
   cursor: pointer;
@@ -872,6 +875,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .tms__container {
   position: relative;
   height: 100%;
+  min-height: 0;
 }
 .tms__body {
   position: relative;
@@ -879,7 +883,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
   min-height: 0;
   padding-top: 1.25rem;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
   gap: 1.5rem;
 }
 .tms__content {
@@ -887,6 +891,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
   z-index: 3;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 .tms__label {
   font-size: 1.75rem;
@@ -916,16 +921,18 @@ html.--fullpage-init [data-fls-fullpage-section] {
   min-height: 0;
   overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-height: 100%;
 }
 .tms__visual img {
   display: block;
   max-width: 100%;
+  max-height: 70svh;
   width: auto;
   height: auto;
   object-fit: contain;
-  max-height: min(100%, 70vh);
 }.--fullpage-init body {
   overflow: hidden;
   touch-action: none;
@@ -1317,16 +1324,16 @@ html.--fullpage-init [data-fls-fullpage-section] {
 
 @media (max-height: 51.25rem){
   .design__card--dark .design__media img {
-    max-height: min(100%, 32vh);
+    max-height: 32svh;
   }
   .design__card--light .design__media img {
-    max-height: min(100%, 34vh);
+    max-height: 34svh;
   }
   .design__video {
-    max-height: min(100%, 64vh);
+    max-height: 64svh;
   }
   .tms__visual img {
-    max-height: min(100%, 62vh);
+    max-height: 62svh;
   }
 }
 
@@ -1358,7 +1365,6 @@ html.--fullpage-init [data-fls-fullpage-section] {
   }
   .tms {
     height: auto;
-    min-height: auto;
     padding-bottom: 1.875rem;
   }
   .tms__body {
@@ -1372,21 +1378,23 @@ html.--fullpage-init [data-fls-fullpage-section] {
   }
   .tms__visual img {
     max-height: none;
+    width: 100%;
+    height: auto;
   }
 }
 
 @media (max-height: 45rem){
   .design__card--dark .design__media img {
-    max-height: min(100%, 28vh);
+    max-height: 28svh;
   }
   .design__card--light .design__media img {
-    max-height: min(100%, 30vh);
+    max-height: 30svh;
   }
   .design__video {
-    max-height: min(100%, 58vh);
+    max-height: 58svh;
   }
   .tms__visual img {
-    max-height: min(100%, 54vh);
+    max-height: 54svh;
   }
 }
 
