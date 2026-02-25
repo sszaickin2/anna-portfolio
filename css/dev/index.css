@@ -663,6 +663,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }.design {
   background: #2c2c2e;
   color: #fff;
+  height: 100vh;
   height: 100svh;
   overflow: hidden;
 }
@@ -682,25 +683,25 @@ html.--fullpage-init [data-fls-fullpage-section] {
   align-items: stretch;
 }
 .design__left {
-  height: 100%;
   min-width: 0;
   min-height: 0;
+  height: 100%;
   display: grid;
   grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0;
 }
 .design__right {
-  height: 100%;
   min-width: 0;
   min-height: 0;
+  height: 100%;
   display: flex;
 }
 .design__card {
   position: relative;
   isolation: isolate;
-  height: 100%;
   min-width: 0;
   min-height: 0;
+  height: 100%;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   gap: 1.125rem;
@@ -739,9 +740,24 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .design__media, .design__popup {
   position: relative;
   z-index: 0;
-  height: 100%;
-  min-height: 0;
   min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.design__media {
+  border-radius: 0.625rem;
+}
+.design__media img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 .design__left .design__card::before {
   left: auto;
@@ -776,24 +792,6 @@ html.--fullpage-init [data-fls-fullpage-section] {
   color: var(--Text-Secondary);
   max-width: 18.4375rem;
 }
-.design__media {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  min-height: 0;
-  min-width: 0;
-  border-radius: 0.625rem;
-  overflow: hidden;
-}
-.design__media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
 .design__media--center {
   justify-content: center;
   align-items: center;
@@ -805,9 +803,11 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .design__card--dark::before {
   background: #323232;
 }
+.design__card--dark .design__media {
+  border-radius: 0.625rem;
+}
 .design__card--dark .design__media img {
   width: 92%;
-  height: 100%;
   max-height: 100%;
 }
 .design__card--light {
@@ -824,9 +824,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 .design__card--light .design__media img {
   width: min(35rem, 100%);
-  height: 100%;
   max-height: 100%;
-  object-fit: contain;
 }
 .design__card--phone {
   color: #fff;
@@ -840,20 +838,14 @@ html.--fullpage-init [data-fls-fullpage-section] {
   background: transparent;
   border-radius: 0;
 }
-.design__popup {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  min-height: 0;
-}
 .design__video {
   display: block;
   width: min(19.5rem, 100%);
-  height: 100%;
+  height: auto;
+  max-width: 100%;
   max-height: 100%;
-  object-fit: contain;
   border-radius: 2.1875rem;
+  object-fit: contain;
   pointer-events: none;
 }.tms {
   position: relative;
@@ -1158,10 +1150,10 @@ html.--fullpage-init [data-fls-fullpage-section] {
   }
   .design__content {
     height: auto;
+    min-height: auto;
     grid-template-columns: 1fr;
     gap: 1.5625rem;
     padding-top: 1.5625rem;
-    min-height: auto;
   }
   .design__left {
     height: auto;
@@ -1195,15 +1187,13 @@ html.--fullpage-init [data-fls-fullpage-section] {
     background: #323232;
   }
   .design__video {
-    height: auto;
     max-height: none;
   }
   .design__media {
     overflow: visible;
+    height: auto;
   }
   .design__media img {
-    height: auto;
-    width: 100%;
     max-height: none;
   }
 }
@@ -1333,6 +1323,10 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 
 @media (max-height: 51.25rem){
+  .design__card {
+    padding-bottom: 1.25rem;
+    gap: 0.875rem;
+  }
   .tms__visual img {
     max-height: 62svh;
   }
@@ -1385,6 +1379,10 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 
 @media (max-height: 45rem){
+  .design__card {
+    padding-bottom: 1rem;
+    gap: 0.75rem;
+  }
   .tms__visual img {
     max-height: 54svh;
   }
@@ -1564,6 +1562,9 @@ html.--fullpage-init [data-fls-fullpage-section] {
 @media (width > 96.875em){
   .design__card--light {
     display: grid;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
     grid-template-columns: minmax(16.25rem, 21.25rem) minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr);
     column-gap: 1.5rem;
