@@ -828,7 +828,7 @@ class FullPage {
   }
 }
 const fpWrapper = document.querySelector("[data-fls-fullpage]");
-const FP_BREAKPOINT = 1920;
+const FP_BREAKPOINT = 1024;
 let fp = null;
 function enableFullpage() {
   if (!fpWrapper || fp) return;

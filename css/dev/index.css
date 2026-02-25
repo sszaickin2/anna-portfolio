@@ -570,6 +570,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
   max-width: 21.875rem;
   position: relative;
   z-index: 2;
+  padding-left: 1.875rem;
 }
 .projects__media {
   display: flex;
@@ -621,6 +622,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  /* ✅ мобилка начинается НИЖЕ 1024 */
 }
 .design__container {
   overflow: visible;
@@ -631,10 +633,12 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 .design__content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* ✅ фикс: колонки не распирает */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   flex: 1;
   min-height: 0;
   align-items: stretch;
+  /* ✅ 2 колонки живут до 1024 включительно */
 }
 .design__left {
   display: grid;
@@ -652,8 +656,6 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .design {
   /* ======================================
      КЛИКАБЕЛЬНОСТЬ / UX
-     - По умолчанию карточки НЕ "кнопки"
-     - Курсор pointer только у элементов с действием
      ====================================== */
 }
 .design__card {
@@ -688,10 +690,10 @@ html.--fullpage-init [data-fls-fullpage-section] {
   pointer-events: none;
 }
 .design__card {
-  /* ===== HOVER ТОЛЬКО ПК (как в tms) ===== */
+  /* hover только ПК */
 }
 .design__card {
-  /* ===== НА ТАЧЕ ЖЁСТКО ВЫКЛЮЧАЕМ ОВЕРЛЕЙ (подстраховка) ===== */
+  /* тач — оверлей off */
 }
 .design [data-fls-popup-link] {
   cursor: pointer;
@@ -701,6 +703,9 @@ html.--fullpage-init [data-fls-fullpage-section] {
   z-index: 2;
   display: grid;
   gap: 0.375rem;
+}
+.design {
+  /* растяжка фона на половину экрана */
 }
 .design__left .design__card::before, .design__left .design__card::after {
   right: 0;
@@ -743,6 +748,9 @@ html.--fullpage-init [data-fls-fullpage-section] {
   border-radius: 0;
   overflow: visible;
 }
+.design {
+  /* ===== DARK ===== */
+}
 .design__card--dark {
   color: #fff;
 }
@@ -750,7 +758,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
   background: #323232;
 }
 .design__card--dark .design__media {
-  margin-top: 0rem;
+  margin-top: 0;
   flex: 1;
   min-height: 0;
   align-items: stretch;
@@ -761,6 +769,9 @@ html.--fullpage-init [data-fls-fullpage-section] {
   height: 100%;
   object-fit: contain;
 }
+.design {
+  /* ===== LIGHT (фикс для 1024) ===== */
+}
 .design__card--light {
   color: #3a3a3c;
 }
@@ -769,9 +780,10 @@ html.--fullpage-init [data-fls-fullpage-section] {
 }
 .design__card--light {
   display: grid;
-  grid-template-columns: minmax(16.25rem, 22.5rem) minmax(26.25rem, 1fr);
   column-gap: 1.5rem;
   align-items: start;
+  /* ✅ чтобы не ломало на 1024 */
+  grid-template-columns: minmax(16.25rem, 21.25rem) minmax(0, 1fr);
 }
 .design__card--light .design__subtitle {
   color: #3a3a3c;
@@ -785,13 +797,17 @@ html.--fullpage-init [data-fls-fullpage-section] {
   align-items: center;
   padding-right: 2rem;
   padding-top: 0.625rem;
-  min-width: 26.25rem;
+  /* ✅ было 26.25rem — ломало сетку */
+  min-width: 0;
 }
 .design__card--light .design__media img {
-  width: clamp(22.5rem, 40vmin, 35rem);
+  width: clamp(20rem, 38vmin, 35rem);
   max-height: 35rem;
   object-fit: contain;
   transform: translate(-0.875rem, 0.375rem);
+}
+.design {
+  /* ===== PHONE ===== */
 }
 .design__card--phone {
   color: #fff;
@@ -816,7 +832,9 @@ html.--fullpage-init [data-fls-fullpage-section] {
   border-radius: 2.1875rem;
   object-fit: cover;
   pointer-events: none;
-}.tms {
+}
+
+/* ✅ мобилка начинается НИЖЕ 1024 */.tms {
   position: relative;
   min-height: 100%;
   overflow: hidden;
@@ -1104,7 +1122,13 @@ html.--fullpage-init [data-fls-fullpage-section] {
   }
 }
 
-@media (width <= 78.125em){
+@media (width <= 65.875em){
+  .contact__block {
+    padding-top: 1.875rem;
+  }
+}
+
+@media (width <= 63.99875em){
   .design {
     padding-bottom: 1.875rem;
   }
@@ -1135,12 +1159,6 @@ html.--fullpage-init [data-fls-fullpage-section] {
   }
   .design__card--phone::before {
     background: #323232;
-  }
-}
-
-@media (width <= 65.875em){
-  .contact__block {
-    padding-top: 1.875rem;
   }
 }
 
@@ -1212,7 +1230,6 @@ html.--fullpage-init [data-fls-fullpage-section] {
 
 @media (max-width: 56.25rem){
   .projects__item {
-    padding: 0;
     border-radius: 1.25rem;
   }
   .projects {
@@ -1233,7 +1250,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
   }
   .projects__list {
     grid-template-columns: 1fr;
-    row-gap: 0;
+    row-gap: 1.875rem;
   }
   .projects__item {
     padding-top: 2.5rem;
@@ -1285,9 +1302,13 @@ html.--fullpage-init [data-fls-fullpage-section] {
   }
   .tms {
     min-height: auto;
+    padding-bottom: 1.875rem;
   }
   .tms__body {
     min-height: auto;
+  }
+  .tms__visual {
+    margin-top: 2.5rem;
   }
 }
 
