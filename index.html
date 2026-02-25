@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="preload" href="./assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="preload" href="./assets/fonts/Inter-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+		<link rel="shortcut icon" href="./assets/img/favicon.ico">
+		<title>Портфолио</title>
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1772012433822"></script>
+		<link rel="modulepreload" crossorigin="" href="./js/common.min.js?v=1772012433822">
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1772012433822">
+	</head>
+	<body>
+		<div class="wrapper">
+			<header data-fls-header="" class="header">
+				<div class="header__container">
+					<!-- <include src="@components/layout/menu/menu.html" locals='{"active":"Home"}'></include> -->
+				</div>
+			</header>
+			<main class="page" data-fls-fullpage="">
+				<section id="index" data-fls-index="" class="index" data-fls-fullpage-section="">
+					<div class="index__section">
+						<div class="index__container">
+							<div class="index__content">
+								<div class="index__navigation">
+									<div class="index__menu">
+										<a href="#tms" data-fls-scrollto=".tms" class="index__menu--link">Кейсы</a>
+										<a href="#experience" data-fls-scrollto=".experience" class="index__menu--link">Опыт</a>
+										<a href="#contact" data-fls-scrollto=".contact" class="index__menu--link">Контакты</a>
+									</div>
+									<a href="#" class="index__logo">Портфолио</a>
+								</div>
+								<div class="index__main">
+									<div class="index__info">
+										<h1 class="index__info--name">Product Designer</h1>
+										<div class="index__info--block">
+											<div class="index__info--mobile">
+												<p class="index__info--inf">Я - Аня</p>
+												<img class="index__info--images" src="./assets/img/photo.svg" alt="Анна">
+											</div>
+											<p class="index__info--job">6+ лет в дизайне, 3.5 из них в продукте</p>
+										</div>
+										<p class="index__info--responsibilities">
+											Проектирую цифровые интерфейсы для Smart TV, web и mobile, которые выдерживают рост и реальные бизнес-ограничения
+										</p>
+										<a class="index__info--button" target="_blank" rel="noopener noreferrer" href="https://t.me/anna_zaickina">
+											<div class="index__info--icon --icon-telegram" aria-hidden="true"></div>
+											<div class="index__info--text">Написать в ТГ</div>
+										</a>
+									</div>
+									<ul class="index__list">
+										<li class="index__list--li">
+											Использую дизайн как способ упростить процессы и сделать сложные вещи понятными пользователю.
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="tms" class="tms" data-fls-fullpage-section="" data-fls-popup-link="popup">
+					<div class="tms__container">
+						<div class="tms__body">
+							<div class="tms__content">
+								<div class="tms__label">TVIP TMS</div>
+								<p class="tms__description">Коммерческий проект</p>
+								<h2 class="tms__title">Продуктовый дизайн SMART TV платформы</h2>
+							</div>
+							<div class="tms__visual">
+								<picture>
+									<source media="(max-width: 600px)" srcset="./assets/img/tvip-tv-600.webp" type="image/webp">
+									<img alt="Интерфейс SMART TV платформы" src="./assets/img/tvip-tv.webp">
+								</picture>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="design" class="design" data-fls-fullpage-section="">
+					<div class="design__container">
+						<div class="design__content">
+							<div class="design__left">
+								<div class="design__card design__card--dark" data-fls-popup-link="tms-popup">
+									<div class="design__header">
+										<h3 class="design__title">Дизайн-система TVIP TMS</h3>
+										<p class="design__subtitle">Коммерческий проект</p>
+									</div>
+									<div class="design__media">
+										<picture>
+											<img alt="Интерфейс TVIP TMS" loading="lazy" src="./assets/img/tvip.webp">
+										</picture>
+									</div>
+								</div>
+								<div class="design__card design__card--light" data-fls-popup-link="sber-popup">
+									<div class="design__header">
+										<h3 class="design__title">Mobile app СберЗдоровье</h3>
+										<p class="design__subtitle">Исследовательский некоммерческий проект</p>
+									</div>
+									<div class="design__media">
+										<picture>
+											<img alt="Скриншоты приложения СберЗдоровье" loading="lazy" src="./assets/img/sber.webp">
+										</picture>
+									</div>
+								</div>
+							</div>
+							<div class="design__right design__card design__card--phone" data-fls-popup-link="yandex-popup">
+								<div class="design__header">
+									<h3 class="design__title">Онлайн-чаевые Яндекс</h3>
+									<p class="design__subtitle">Исследовательский некоммерческий проект</p>
+								</div>
+								<div class="design__media design__media--center">
+									<div class="design__popup">
+										<video class="design__video" autoplay muted loop playsinline="" preload="metadata" poster="assets/img/yandex-poster.jpg">
+											<source src="./assets/img/video.mp4" type="video/mp4">
+											Ваш браузер не поддерживает видео.
+										</video>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="projects" class="projects" data-fls-fullpage-section="">
+					<div class="projects__bg">
+						<div class="projects__container">
+							<div class="projects__list">
+								<div class="projects__item projects__item--web" data-fls-popup-link="clobecost-popup">
+									<div class="projects__info">
+										<h3 class="projects__title">Beverly Group – Web-портал новостного сервиса</h3>
+										<p class="projects__text">Корпоративный сайт</p>
+									</div>
+									<div class="projects__media">
+										<picture>
+											<img alt="Beverly Group web project" src="./assets/img/beverly-web.webp">
+										</picture>
+									</div>
+								</div>
+								<div class="projects__item projects__item--mobile" data-fls-popup-link="wedream-popup">
+									<div class="projects__info">
+										<h3 class="projects__title">Сервис подбора локаций WeDream</h3>
+										<p class="projects__text">Мобильное приложение</p>
+									</div>
+									<div class="projects__media">
+										<picture>
+											<img alt="WeDream mobile app" src="./assets/img/wedream-mobile.webp">
+										</picture>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="experience" class="experience" aria-labelledby="experience-title" data-fls-fullpage-section="">
+					<div class="experience__container">
+						<div class="experience__content">
+							<h2 id="experience-title" class="experience__title">Опыт работы</h2>
+							<div class="experience__block">
+								<div class="experience__date">
+									<time datetime="2022">2022</time>
+									—
+									<span>по настоящее время</span>
+								</div>
+								<div class="experience__info">
+									<h3 class="experience__job">Product Designer</h3>
+									<p class="experience__company">TVIP LABS</p>
+									<ul class="experience__description">
+										<li>
+											Проектировала и оптимизировала ключевые пользовательские сценарии под управление с пульта Запустила дизайн-систему для ускорения и масштабирования
+              разработки
+										</li>
+									</ul>
+								</div>
+								<div class="experience__results">
+									<div class="experience__results--percent">–32%</div>
+									<div class="experience__results--text">коэффициент оттока пользователей</div>
+								</div>
+								<div class="experience__speed">
+									<div class="experience__speed--percent">+18%</div>
+									<div class="experience__speed--text">Средний доход на пользователя</div>
+								</div>
+								<div class="experience__load">
+									<div class="experience__load--percent">–60%</div>
+									<div class="experience__load--text">Снижение нагрузки на поддержку</div>
+								</div>
+							</div>
+							<div class="experience__block">
+								<div class="experience__date experience__date--color">
+									<time datetime="2021">2021</time>
+									—
+									<time datetime="2022">2022</time>
+								</div>
+								<div class="experience__info">
+									<h3 class="experience__job">UX/UI Designer</h3>
+									<p class="experience__company">Beverly Group</p>
+									<p class="experience__description">
+										Проектировала пользовательские сценарии новостного веб-портала
+										<br>
+										Улучшила структуру, навигацию и адаптивные решения для web и mobile
+									</p>
+								</div>
+								<div class="experience__results">
+									<div class="experience__results--percent">≈15%</div>
+									<div class="experience__results--text">Повысилась посещаемость портала за счёт улучшения структуры и UX-сценариев</div>
+								</div>
+								<div class="experience__speed experience__opacity" aria-hidden="true" role="presentation"></div>
+								<div class="experience__load experience__opacity" aria-hidden="true" role="presentation"></div>
+							</div>
+							<div class="experience__block">
+								<div class="experience__date experience__date--color">
+									<time datetime="2020">2020</time>
+									—
+									<time datetime="2021">2021</time>
+								</div>
+								<div class="experience__info">
+									<h3 class="experience__job">UX/UI Designer</h3>
+									<p class="experience__company">iMask</p>
+									<p class="experience__description">
+										Работала над UI интернет-магазина. Проектировала и разрабатывала web-интерфейсы для B2B и B2C сегментов.
+									</p>
+								</div>
+								<div class="experience__results">
+									<div class="experience__results--percent">≈40%</div>
+									<div class="experience__results--text">
+										Интерфейс интернет-магазина повысил продажи и привлёк крупных корпоративных клиентов.
+									</div>
+								</div>
+								<div class="experience__speed experience__opacity" aria-hidden="true" role="presentation"></div>
+								<div class="experience__load experience__opacity" aria-hidden="true" role="presentation"></div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section id="contact" class="contact" data-fls-fullpage-section="">
+					<div class="contact__container">
+						<div class="contact__content">
+							<div class="contact__block">
+								<h2 class="contact__title">Готова к новым продуктовым задачам</h2>
+								<a class="contact__info-button" href="https://t.me/anna_zaickina" target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram">
+									<div class="contact__info--icon --icon-telegram" aria-hidden="true"></div>
+									<span class="contact__info-text">Написать в ТГ</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+			<footer data-fls-footer="" class="footer">
+				<div class="footer__container"></div>
+			</footer>
+		</div>
+		<div data-fls-popup="popup" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<div data-fls-popup-content="" class="popup__text">
+						<div class="popup__top" tabindex="-1"></div>
+						<picture>
+							<source media="(max-width: 600px)" srcset="./assets/img/TVIP-TMS-600.webp" type="image/webp">
+							<source media="(max-width: 1200px)" srcset="./assets/img/TVIP-TMS-1200.webp" type="image/webp">
+							<img alt="Image" src="./assets/img/TVIP-TMS.webp">
+						</picture>
+					</div>
+					<button data-fls-popup-close="" type="button" class="popup__close" tabindex="-1" aria-label="Close">
+						<svg class="popup__close-icon" width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.73333 1.48883L21.5469 21.0288"></path>
+							<path d="M21.2667 1.48883L1.45309 21.0288"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div data-fls-popup="wedream-popup" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<div data-fls-popup-content="" class="popup__text">
+						<div class="popup__top" tabindex="-1"></div>
+						<picture>
+							<source media="(max-width: 600px)" srcset="./assets/img/wedream-popup-600.webp" type="image/webp">
+							<source media="(max-width: 1200px)" srcset="./assets/img/wedream-popup-1200.webp" type="image/webp">
+							<img alt="Image" src="./assets/img/wedream-popup.webp">
+						</picture>
+					</div>
+					<button data-fls-popup-close="" type="button" class="popup__close" tabindex="-1" aria-label="Close">
+						<svg class="popup__close-icon" width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.73333 1.48883L21.5469 21.0288"></path>
+							<path d="M21.2667 1.48883L1.45309 21.0288"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div data-fls-popup="clobecost-popup" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<div data-fls-popup-content="" class="popup__text">
+						<div class="popup__top" tabindex="-1"></div>
+						<picture>
+							<source media="(max-width: 600px)" srcset="./assets/img/clobecost-popup-600.webp" type="image/webp">
+							<source media="(max-width: 1200px)" srcset="./assets/img/clobecost-popup-1200.webp" type="image/webp">
+							<img alt="Image" src="./assets/img/clobecost-popup.webp">
+						</picture>
+					</div>
+					<button data-fls-popup-close="" type="button" class="popup__close" tabindex="-1" aria-label="Close">
+						<svg class="popup__close-icon" width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.73333 1.48883L21.5469 21.0288"></path>
+							<path d="M21.2667 1.48883L1.45309 21.0288"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div data-fls-popup="yandex-popup" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<div data-fls-popup-content="" class="popup__text">
+						<div class="popup__top" tabindex="-1"></div>
+						<picture>
+							<source media="(max-width: 600px)" srcset="./assets/img/yandex-popup-600.webp" type="image/webp">
+							<source media="(max-width: 1200px)" srcset="./assets/img/yandex-popup-1200.webp" type="image/webp">
+							<img alt="Image" src="./assets/img/yandex-popup.webp">
+						</picture>
+					</div>
+					<button data-fls-popup-close="" type="button" class="popup__close" tabindex="-1" aria-label="Close">
+						<svg class="popup__close-icon" width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.73333 1.48883L21.5469 21.0288"></path>
+							<path d="M21.2667 1.48883L1.45309 21.0288"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div data-fls-popup="sber-popup" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<div data-fls-popup-content="" class="popup__text">
+						<div class="popup__top" tabindex="-1"></div>
+						<picture>
+							<source media="(max-width: 600px)" srcset="./assets/img/sber-popup-600.webp" type="image/webp">
+							<source media="(max-width: 1200px)" srcset="./assets/img/sber-popup-1200.webp" type="image/webp">
+							<img alt="Image" src="./assets/img/sber-popup.webp">
+						</picture>
+					</div>
+					<button data-fls-popup-close="" type="button" class="popup__close" tabindex="-1" aria-label="Close">
+						<svg class="popup__close-icon" width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.73333 1.48883L21.5469 21.0288"></path>
+							<path d="M21.2667 1.48883L1.45309 21.0288"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div data-fls-popup="tms-popup" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<div data-fls-popup-content="" class="popup__text">
+						<div class="popup__top" tabindex="-1"></div>
+						<picture>
+							<source media="(max-width: 600px)" srcset="./assets/img/tms-popup-600.webp" type="image/webp">
+							<source media="(max-width: 1200px)" srcset="./assets/img/tms-popup-1200.webp" type="image/webp">
+							<img alt="Image" src="./assets/img/tms-popup.webp">
+						</picture>
+					</div>
+					<button data-fls-popup-close="" type="button" class="popup__close" tabindex="-1" aria-label="Close">
+						<svg class="popup__close-icon" width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M1.73333 1.48883L21.5469 21.0288"></path>
+							<path d="M21.2667 1.48883L1.45309 21.0288"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<button type="button" class="to-top" aria-label="Наверх">
+			<span class="to-top__icon" aria-hidden="true">↑</span>
+		</button>
+	</body>
+</html>
