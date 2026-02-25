@@ -367,6 +367,10 @@ class FullPage {
     this._scrollEps = 2;
     this._wheelAcc = 0;
     this._wheelThreshold = 35;
+    this._wheelCooldown = 900;
+    this._wheelLockUntil = 0;
+    this._wheelAccTimer = null;
+    this._wheelAccResetDelay = 140;
     if (this.sections.length) {
       this.init();
     }
@@ -519,7 +523,6 @@ class FullPage {
       s.style.transform = "";
     }
   }
-  // ✅ КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ:
   // считаем внутренний скролл только если элемент реально скроллится (overflow-y auto/scroll)
   haveScroll(element) {
     const cs = window.getComputedStyle(element);
@@ -559,6 +562,7 @@ class FullPage {
   setEvents() {
     this.wrapper.addEventListener("wheel", this.events.wheel, { passive: false });
     this.wrapper.addEventListener("touchstart", this.events.touchdown);
+    this.wrapper.addEventListener("transitionend", this.events.transitionEnd);
     if (this.options.bullets && this.bulletsWrapper) {
       this.bulletsWrapper.addEventListener("click", this.events.click);
     }
@@ -569,6 +573,7 @@ class FullPage {
     this.wrapper.removeEventListener("touchend", this.events.touchup);
     this.wrapper.removeEventListener("touchcancel", this.events.touchup);
     this.wrapper.removeEventListener("touchmove", this.events.touchmove);
+    this.wrapper.removeEventListener("transitionend", this.events.transitionEnd);
     if (this.bulletsWrapper) {
       this.bulletsWrapper.removeEventListener("click", this.events.click);
     }
@@ -638,22 +643,34 @@ class FullPage {
     }
     this.clickOrTouch = false;
   }
-  transitionend() {
+  // ✅ Снимаем блокировку только по transitionend (а не по таймеру)
+  // ⚠️ фильтр: игнорируем transitionend от внутренних элементов
+  transitionend(e) {
+    if (!this.stopEvent) return;
+    const isFromWrapper = e.target === this.wrapper;
+    const isFromSection = !!e.target.closest(this.options.selectorSection);
+    if (!isFromWrapper && !isFromSection) return;
     this.stopEvent = false;
     document.documentElement.classList.remove(this.options.wrapperAnimatedClass);
     this.wrapper.classList.remove(this.options.wrapperAnimatedClass);
   }
-  // ✅ wheel:
-  // - всегда fallback на activeSection (если крутишь над меню)
-  // - аккумулируем delta (трекпад)
   wheel(e) {
     if (e.target.closest(this.options.noEventSelector)) return;
+    const now = Date.now();
+    if (now < this._wheelLockUntil) {
+      if (e.cancelable) e.preventDefault();
+      return;
+    }
     const delta = e.deltaY;
     const targetElement = e.target.closest(`.${this.options.activeClass}`) || this.activeSection;
     this.checkScroll(delta, targetElement);
     if (!this.goScroll) return;
     if (e.cancelable) e.preventDefault();
     this._wheelAcc += delta;
+    clearTimeout(this._wheelAccTimer);
+    this._wheelAccTimer = setTimeout(() => {
+      this._wheelAcc = 0;
+    }, this._wheelAccResetDelay);
     if (Math.abs(this._wheelAcc) < this._wheelThreshold) return;
     const direction = this._wheelAcc;
     this._wheelAcc = 0;
@@ -695,9 +712,7 @@ class FullPage {
         document.documentElement.classList.remove("--fullpage-up");
         document.documentElement.classList.add("--fullpage-down");
       }
-      setTimeout(() => {
-        this.events.transitionEnd();
-      }, delaySection);
+      this._wheelLockUntil = Date.now() + Math.max(delaySection, this._wheelCooldown);
       this.options.onSwitching(this);
       document.dispatchEvent(new CustomEvent("fpswitching", { detail: { fp: this } }));
     }
