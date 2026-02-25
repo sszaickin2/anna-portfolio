@@ -1300,6 +1300,9 @@ html.--fullpage-init [data-fls-fullpage-section] {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
+  .projects__media {
+    padding-bottom: 1.875rem;
+  }
   .tms {
     min-height: auto;
     padding-bottom: 1.875rem;

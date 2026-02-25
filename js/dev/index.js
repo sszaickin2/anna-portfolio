@@ -333,54 +333,23 @@ document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () 
 class FullPage {
   constructor(element, options) {
     let config = {
-      //===============================
-      // Селектор, на котором не работает событие свайпа/колеса
       noEventSelector: "[data-fls-fullpage-noevent]",
-      //===============================
-      // Настройки оболочки
-      // Класс при инициализации плагина
       classInit: "--fullpage-init",
-      // Класс для врапера во время пролистывания
       wrapperAnimatedClass: "--fullpage-switching",
-      //===============================
-      // Настройки секций
-      // СЕЛЕКТОР для секций
       selectorSection: "[data-fls-fullpage-section]",
-      // Класс для активной секции
       activeClass: "--fullpage-active-section",
-      // Класс для предыдущей секции
       previousClass: "--fullpage-previous-section",
-      // Класс для следующей секции
       nextClass: "--fullpage-next-section",
-      // id изначально активного класса
       idActiveSection: 0,
-      //===============================
-      // Прочие настройки
-      // Свайп мышью
-      // touchSimulator: false,
-      //===============================
-      // Эффекты
-      // Эффекты: fade, cards, slider
       mode: element.dataset.flsFullpageEffect ? element.dataset.flsFullpageEffect : "slider",
-      //===============================
-      // Буллеты
-      // Активация буллетов
       bullets: element.hasAttribute("data-fls-fullpage-bullets") ? true : false,
-      // Класс оболочки буллетов
       bulletsClass: "--fullpage-bullets",
-      // Класс буллета
       bulletClass: "--fullpage-bullet",
-      // Класс активного буллета
       bulletActiveClass: "--fullpage-bullet-active",
-      //===============================
-      // События
-      // Событие создания
       onInit: function() {
       },
-      // Событие перелистывания секции
       onSwitching: function() {
       },
-      // Событие разрушения плагина
       onDestroy: function() {
       }
     };
@@ -395,12 +364,13 @@ class FullPage {
     this.nextSectionId = false;
     this.bulletsWrapper = false;
     this.stopEvent = false;
+    this._scrollEps = 2;
+    this._wheelAcc = 0;
+    this._wheelThreshold = 35;
     if (this.sections.length) {
       this.init();
     }
   }
-  //===============================
-  // Начальная инициализация
   init() {
     if (this.options.idActiveSection > this.sections.length - 1) return;
     this.setId();
@@ -416,15 +386,9 @@ class FullPage {
     setTimeout(() => {
       document.documentElement.classList.add(this.options.classInit);
       this.options.onInit(this);
-      document.dispatchEvent(
-        new CustomEvent("fpinit", {
-          detail: { fp: this }
-        })
-      );
+      document.dispatchEvent(new CustomEvent("fpinit", { detail: { fp: this } }));
     }, 0);
   }
-  //===============================
-  // Удалить
   destroy() {
     this.removeEvents();
     this.removeClasses();
@@ -435,37 +399,25 @@ class FullPage {
     this.removeStyle();
     this.removeId();
     this.options.onDestroy(this);
-    document.dispatchEvent(
-      new CustomEvent("fpdestroy", {
-        detail: { fp: this }
-      })
-    );
+    document.dispatchEvent(new CustomEvent("fpdestroy", { detail: { fp: this } }));
   }
-  //===============================
-  // Установка ID для секций
   setId() {
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      section.setAttribute("data-fls-fullpage-id", index);
+    for (let i = 0; i < this.sections.length; i++) {
+      this.sections[i].setAttribute("data-fls-fullpage-id", i);
     }
   }
-  //===============================
-  // Удаление ID для секций
   removeId() {
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      section.removeAttribute("data-fls-fullpage-id");
+    for (let i = 0; i < this.sections.length; i++) {
+      this.sections[i].removeAttribute("data-fls-fullpage-id");
     }
   }
-  //===============================
-  // Функция установки классов для первой, активной и следующей секций
   setClasses() {
     this.previousSectionId = this.activeSectionId - 1 >= 0 ? this.activeSectionId - 1 : false;
     this.nextSectionId = this.activeSectionId + 1 < this.sections.length ? this.activeSectionId + 1 : false;
     this.activeSection = this.sections[this.activeSectionId];
     this.activeSection.classList.add(this.options.activeClass);
-    for (let index = 0; index < this.sections.length; index++) {
-      document.documentElement.classList.remove(`--fullpage-section-${index}`);
+    for (let i = 0; i < this.sections.length; i++) {
+      document.documentElement.classList.remove(`--fullpage-section-${i}`);
     }
     document.documentElement.classList.add(`--fullpage-section-${this.activeSectionId}`);
     if (this.previousSectionId !== false) {
@@ -481,8 +433,14 @@ class FullPage {
       this.nextSection = false;
     }
   }
-  //===============================
-  // Снятие классов эффектов
+  removeClasses() {
+    for (let i = 0; i < this.sections.length; i++) {
+      const s = this.sections[i];
+      s.classList.remove(this.options.activeClass);
+      s.classList.remove(this.options.previousClass);
+      s.classList.remove(this.options.nextClass);
+    }
+  }
   removeEffectsClasses() {
     switch (this.options.mode) {
       case "slider":
@@ -498,8 +456,6 @@ class FullPage {
         break;
     }
   }
-  //===============================
-  // Присвоение классов с разными эффектами
   setEffectsClasses() {
     switch (this.options.mode) {
       case "slider":
@@ -515,8 +471,6 @@ class FullPage {
         break;
     }
   }
-  //===============================
-  // Функция установки стилей
   setStyle() {
     switch (this.options.mode) {
       case "slider":
@@ -530,108 +484,80 @@ class FullPage {
         break;
     }
   }
-  // slider-mode
   styleSlider() {
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      if (index === this.activeSectionId) {
-        section.style.transform = "translate3D(0,0,0)";
-      } else if (index < this.activeSectionId) {
-        section.style.transform = "translate3D(0,-100%,0)";
-      } else if (index > this.activeSectionId) {
-        section.style.transform = "translate3D(0,100%,0)";
-      }
+    for (let i = 0; i < this.sections.length; i++) {
+      const s = this.sections[i];
+      if (i === this.activeSectionId) s.style.transform = "translate3D(0,0,0)";
+      else if (i < this.activeSectionId) s.style.transform = "translate3D(0,-100%,0)";
+      else s.style.transform = "translate3D(0,100%,0)";
     }
   }
-  // cards mode
   styleCards() {
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      if (index >= this.activeSectionId) {
-        section.style.transform = "translate3D(0,0,0)";
-      } else if (index < this.activeSectionId) {
-        section.style.transform = "translate3D(0,-100%,0)";
-      }
+    for (let i = 0; i < this.sections.length; i++) {
+      const s = this.sections[i];
+      if (i >= this.activeSectionId) s.style.transform = "translate3D(0,0,0)";
+      else s.style.transform = "translate3D(0,-100%,0)";
     }
   }
-  // fade style
   styleFade() {
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      if (index === this.activeSectionId) {
-        section.style.opacity = "1";
-        section.style.pointerEvents = "all";
+    for (let i = 0; i < this.sections.length; i++) {
+      const s = this.sections[i];
+      if (i === this.activeSectionId) {
+        s.style.opacity = "1";
+        s.style.pointerEvents = "all";
       } else {
-        section.style.opacity = "0";
-        section.style.pointerEvents = "none";
+        s.style.opacity = "0";
+        s.style.pointerEvents = "none";
       }
     }
   }
-  //===============================
-  // Удаление стилей
   removeStyle() {
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      section.style.opacity = "";
-      section.style.visibility = "";
-      section.style.transform = "";
+    for (let i = 0; i < this.sections.length; i++) {
+      const s = this.sections[i];
+      s.style.opacity = "";
+      s.style.visibility = "";
+      s.style.transform = "";
     }
   }
-  //===============================
-  // Функция проверки полностью ли был прокручен элемент
+  // ✅ КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ:
+  // считаем внутренний скролл только если элемент реально скроллится (overflow-y auto/scroll)
+  haveScroll(element) {
+    const cs = window.getComputedStyle(element);
+    const oy = cs.overflowY;
+    const canScrollY = oy === "auto" || oy === "scroll";
+    if (!canScrollY) return false;
+    return element.scrollHeight > element.clientHeight + this._scrollEps;
+  }
   checkScroll(yCoord, element) {
     this.goScroll = false;
     if (!this.stopEvent && element) {
       this.goScroll = true;
       if (this.haveScroll(element)) {
         this.goScroll = false;
-        const position = Math.round(element.scrollHeight - element.scrollTop);
-        if (Math.abs(position - element.scrollHeight) < 2 && yCoord <= 0 || Math.abs(position - element.clientHeight) < 2 && yCoord >= 0) {
-          this.goScroll = true;
-        }
+        const maxScrollTop = element.scrollHeight - element.clientHeight;
+        const scrollTop = element.scrollTop;
+        if (yCoord < 0 && scrollTop <= this._scrollEps) this.goScroll = true;
+        if (yCoord > 0 && scrollTop >= maxScrollTop - this._scrollEps) this.goScroll = true;
       }
     }
   }
-  //===============================
-  // Проверка высоты
-  haveScroll(element) {
-    return element.scrollHeight !== window.innerHeight;
-  }
-  //===============================
-  // Удаление классов
-  removeClasses() {
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      section.classList.remove(this.options.activeClass);
-      section.classList.remove(this.options.previousClass);
-      section.classList.remove(this.options.nextClass);
-    }
-  }
-  //===============================
-  // Сборник событий...
   events() {
     this.events = {
-      // Колесо мыши
       wheel: this.wheel.bind(this),
-      // Свайп
       touchdown: this.touchDown.bind(this),
       touchup: this.touchUp.bind(this),
       touchmove: this.touchMove.bind(this),
       touchcancel: this.touchUp.bind(this),
-      // Конец анимации
       transitionEnd: this.transitionend.bind(this),
-      // Клик для буллетов
       click: this.clickBullets.bind(this)
     };
     if (isMobile.iOS()) {
-      document.addEventListener("touchmove", (e) => {
-        e.preventDefault();
-      });
+      document.addEventListener("touchmove", (e) => e.preventDefault());
     }
     this.setEvents();
   }
   setEvents() {
-    this.wrapper.addEventListener("wheel", this.events.wheel);
+    this.wrapper.addEventListener("wheel", this.events.wheel, { passive: false });
     this.wrapper.addEventListener("touchstart", this.events.touchdown);
     if (this.options.bullets && this.bulletsWrapper) {
       this.bulletsWrapper.addEventListener("click", this.events.click);
@@ -647,29 +573,21 @@ class FullPage {
       this.bulletsWrapper.removeEventListener("click", this.events.click);
     }
   }
-  //===============================
-  // Функция клика по буллетам
   clickBullets(e) {
     const bullet = e.target.closest(`.${this.options.bulletClass}`);
     if (bullet) {
-      const arrayChildren = Array.from(this.bulletsWrapper.children);
-      const idClickBullet = arrayChildren.indexOf(bullet);
-      this.switchingSection(idClickBullet);
+      const kids = Array.from(this.bulletsWrapper.children);
+      const id = kids.indexOf(bullet);
+      this.switchingSection(id);
     }
   }
-  //===============================
-  // Установка стилей для буллетов
   setActiveBullet(idButton) {
     if (!this.bulletsWrapper) return;
     const bullets = this.bulletsWrapper.children;
-    for (let index = 0; index < bullets.length; index++) {
-      const bullet = bullets[index];
-      if (idButton === index) bullet.classList.add(this.options.bulletActiveClass);
-      else bullet.classList.remove(this.options.bulletActiveClass);
+    for (let i = 0; i < bullets.length; i++) {
+      bullets[i].classList.toggle(this.options.bulletActiveClass, idButton === i);
     }
   }
-  //===============================
-  // Функция нажатия тач/пера/курсора
   touchDown(e) {
     this._yP = e.changedTouches[0].pageY;
     this._eventElement = e.target.closest(`.${this.options.activeClass}`);
@@ -680,9 +598,7 @@ class FullPage {
       this.clickOrTouch = true;
       if (isMobile.iOS()) {
         if (this._eventElement.scrollHeight !== this._eventElement.clientHeight) {
-          if (this._eventElement.scrollTop === 0) {
-            this._eventElement.scrollTop = 1;
-          }
+          if (this._eventElement.scrollTop === 0) this._eventElement.scrollTop = 1;
           if (this._eventElement.scrollTop === this._eventElement.scrollHeight - this._eventElement.clientHeight) {
             this._eventElement.scrollTop = this._eventElement.scrollHeight - this._eventElement.clientHeight - 1;
           }
@@ -693,8 +609,6 @@ class FullPage {
       }
     }
   }
-  //===============================
-  // Событие движения тач/пера/курсора
   touchMove(e) {
     const targetElement = e.target.closest(`.${this.options.activeClass}`);
     if (isMobile.iOS()) {
@@ -716,8 +630,6 @@ class FullPage {
       this.choiceOfDirection(yCoord);
     }
   }
-  //===============================
-  // Событие отпускания
   touchUp() {
     if (this._eventElement) {
       this._eventElement.removeEventListener("touchend", this.events.touchup);
@@ -726,24 +638,27 @@ class FullPage {
     }
     this.clickOrTouch = false;
   }
-  //===============================
-  // Конец срабатывания перехода
   transitionend() {
     this.stopEvent = false;
     document.documentElement.classList.remove(this.options.wrapperAnimatedClass);
     this.wrapper.classList.remove(this.options.wrapperAnimatedClass);
   }
-  //===============================
-  // Событие прокрутки колесом мыши
+  // ✅ wheel:
+  // - всегда fallback на activeSection (если крутишь над меню)
+  // - аккумулируем delta (трекпад)
   wheel(e) {
     if (e.target.closest(this.options.noEventSelector)) return;
-    const yCoord = e.deltaY;
-    const targetElement = e.target.closest(`.${this.options.activeClass}`);
-    this.checkScroll(yCoord, targetElement);
-    if (this.goScroll) this.choiceOfDirection(yCoord);
+    const delta = e.deltaY;
+    const targetElement = e.target.closest(`.${this.options.activeClass}`) || this.activeSection;
+    this.checkScroll(delta, targetElement);
+    if (!this.goScroll) return;
+    if (e.cancelable) e.preventDefault();
+    this._wheelAcc += delta;
+    if (Math.abs(this._wheelAcc) < this._wheelThreshold) return;
+    const direction = this._wheelAcc;
+    this._wheelAcc = 0;
+    this.choiceOfDirection(direction);
   }
-  //===============================
-  // Функция выбора направления
   choiceOfDirection(direction) {
     if (direction > 0 && this.nextSection !== false) {
       this.activeSectionId = this.activeSectionId + 1 < this.sections.length ? ++this.activeSectionId : this.activeSectionId;
@@ -752,9 +667,8 @@ class FullPage {
     }
     this.switchingSection(this.activeSectionId, direction);
   }
-  //===============================
-  // Функция переключения слайдов
   switchingSection(idSection = this.activeSectionId, direction) {
+    this._wheelAcc = 0;
     if (!direction) {
       if (idSection < this.activeSectionId) direction = -100;
       else if (idSection > this.activeSectionId) direction = 100;
@@ -785,15 +699,9 @@ class FullPage {
         this.events.transitionEnd();
       }, delaySection);
       this.options.onSwitching(this);
-      document.dispatchEvent(
-        new CustomEvent("fpswitching", {
-          detail: { fp: this }
-        })
-      );
+      document.dispatchEvent(new CustomEvent("fpswitching", { detail: { fp: this } }));
     }
   }
-  //===============================
-  // Установка буллетов
   setBullets() {
     this.bulletsWrapper = document.querySelector(`.${this.options.bulletsClass}`);
     if (!this.bulletsWrapper) {
@@ -803,27 +711,23 @@ class FullPage {
       this.bulletsWrapper = bullets;
     }
     if (this.bulletsWrapper) {
-      for (let index = 0; index < this.sections.length; index++) {
+      for (let i = 0; i < this.sections.length; i++) {
         const span = document.createElement("span");
         span.classList.add(this.options.bulletClass);
         this.bulletsWrapper.append(span);
       }
     }
   }
-  //===============================
-  // Z-INDEX
   setZIndex() {
     let zIndex = this.sections.length;
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      section.style.zIndex = zIndex;
+    for (let i = 0; i < this.sections.length; i++) {
+      this.sections[i].style.zIndex = zIndex;
       --zIndex;
     }
   }
   removeZIndex() {
-    for (let index = 0; index < this.sections.length; index++) {
-      const section = this.sections[index];
-      section.style.zIndex = "";
+    for (let i = 0; i < this.sections.length; i++) {
+      this.sections[i].style.zIndex = "";
     }
   }
 }
