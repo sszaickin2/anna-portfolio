@@ -576,6 +576,9 @@ html.--fullpage-init [data-fls-fullpage-section] {
 .projects__item {
   /* ✅ hover по item */
 }
+.projects__item--mobile {
+  padding-bottom: 1.875rem;
+}
 .projects {
   /* ✅ геометрия растяжки ДЛЯ ::before */
 }
@@ -1255,7 +1258,6 @@ html.--fullpage-init [data-fls-fullpage-section] {
 
 @media (width <= 56.25em){
   .projects {
-    padding-bottom: 3.75rem;
     padding-top: 1.875rem;
   }
 }
@@ -1263,7 +1265,7 @@ html.--fullpage-init [data-fls-fullpage-section] {
 @media (max-width: 56.25rem){
   .projects__item {
     border-radius: 1.25rem;
-    overflow: hidden; /* чтобы внутри карточки было аккуратно */
+    overflow: hidden;
   }
   .projects {
     height: auto;
@@ -1393,12 +1395,16 @@ html.--fullpage-init [data-fls-fullpage-section] {
     line-height: 3.75rem;
   }
   .index__info--block {
+    margin-top: 1.875rem;
     flex-direction: column;
     align-items: flex-start;
   }
 }
 
 @media (max-width: 29.99875em){
+  .index__main {
+    margin-top: 1.875rem;
+  }
   .index__info--button {
     width: 100%;
   }
